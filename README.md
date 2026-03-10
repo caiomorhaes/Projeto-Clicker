@@ -11,3 +11,5 @@ Upgrades que aumentam o dinheiro gerado por click
 Upgrades que aumentam o dinheiro gerado automaticamente 
 
 Todos os upgrades são gerados entorno da tematica discutida, por exemplo computadores melhores, linguagens mais atuais, e etc
+
+https://www.figma.com/board/LncDMo1Xe0bDtgU3obWf1d/Sem-t%C3%ADtulo?t=kcr4sebUFm455GO0-1
