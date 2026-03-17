@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        Screen.fullScreen = true;
     }
 
     void Update()
