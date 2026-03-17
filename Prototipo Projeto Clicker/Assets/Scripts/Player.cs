@@ -14,9 +14,18 @@ public class Player : MonoBehaviour
     public LayerMask hitLayers;
 
     int pontos = 0;
+    
     public TextMeshProUGUI textoPontos;
     public TextMeshProUGUI textoMultiplicador;
     int multiplicadorPontos = 1;
+    
+    int clicksAuto = 0;
+    float tempoAuto = 0f;
+    float intervaloAuto = 1f;
+    public TextMeshProUGUI textoAutoClick;
+
+    int pontosMaximos = 100;
+    public TextMeshProUGUI textoLimite;
 
 
     void Start()
@@ -61,15 +70,16 @@ public class Player : MonoBehaviour
 
                 if (hit.collider.gameObject.name == "Computador")
                 {
-                    pontos+= multiplicadorPontos;
+                    pontos += multiplicadorPontos;
+                    pontos = Mathf.Clamp(pontos, 0, pontosMaximos);
                     Debug.Log("Pontos: " + pontos);
                     textoPontos.text = "Pontos: " + pontos;
                 }
                 else if (hit.collider.gameObject.name == "Multiplicador")
                 {
-                    if (pontos >= 25)
+                    if (pontos >= 25 * multiplicadorPontos)
                     {
-                        pontos -= 25; 
+                        pontos -= 25 * multiplicadorPontos;
                         multiplicadorPontos++; 
 
                         Debug.Log("Multiplicador: " + multiplicadorPontos);
@@ -84,11 +94,62 @@ public class Player : MonoBehaviour
                         Debug.Log("Pontos insuficientes!");
                     }
                 }
+                else if (hit.collider.gameObject.name == "AutoClick")
+                {
+                    int custo = 20;
+
+                    if (pontos >= custo + 10 * clicksAuto)
+                    {
+                        pontos -= custo + 10 + clicksAuto;
+                        clicksAuto++;
+
+                        Debug.Log("Clicks automáticos: " + clicksAuto);
+                        Debug.Log("Pontos restantes: " + pontos);
+
+                        textoPontos.text = "Pontos: " + pontos;
+                        textoAutoClick.text = "Clicks Automaticos: " + clicksAuto;
+                    }
+                    else
+                    {
+                        Debug.Log("Pontos insuficientes!");
+                    }
+                }
+                else if (hit.collider.gameObject.name == "Limite")
+                {
+                    int custo = pontosMaximos;
+
+                    if (pontos >= pontosMaximos)
+                    {
+                        pontos -= pontosMaximos;
+                        pontosMaximos += 50;
+
+                        Debug.Log("Novo limite: " + pontosMaximos);
+                        Debug.Log("Pontos restantes: " + pontos);
+
+                        textoLimite.text = "Limite: " + pontosMaximos;
+                        textoPontos.text = "Pontos: " + pontos;
+                    }
+                    else
+                    {
+                        Debug.Log("Pontos insuficientes!");
+                    }
+                }
             }
             else
             {
                 Debug.Log("Não acertou nada");
             }
+        }
+
+        tempoAuto += Time.deltaTime;
+
+        if (tempoAuto >= intervaloAuto)
+        {
+            tempoAuto = 0f;
+
+            pontos += clicksAuto;
+            pontos = Mathf.Clamp(pontos, 0, pontosMaximos);
+            textoPontos.text = "Pontos: " + pontos;
         }
 
     }
