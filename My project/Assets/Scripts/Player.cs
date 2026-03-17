@@ -10,6 +10,14 @@ public class Player : MonoBehaviour
     public int sensibilidade;
     public float velocidade = 5.0f;
 
+    public float maxDistance = 10f;
+    public LayerMask hitLayers;
+
+    int pontos = 0;
+    public TextMeshProUGUI textoPontos;
+    public TextMeshProUGUI textoMultiplicador;
+    int multiplicadorPontos = 1;
+
 
     void Start()
     {
@@ -40,7 +48,48 @@ public class Player : MonoBehaviour
 
 
         transform.Translate(movimento * velocidade * Time.deltaTime);
-      
+
+
+        if (Input.GetMouseButtonDown(0)) // só dispara quando clicar
+        {
+            Ray ray = cameraTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, maxDistance, hitLayers))
+            {
+                Debug.Log("Acertou: " + hit.collider.gameObject.name);
+
+                if (hit.collider.gameObject.name == "Computador")
+                {
+                    pontos+= multiplicadorPontos;
+                    Debug.Log("Pontos: " + pontos);
+                    textoPontos.text = "Pontos: " + pontos;
+                }
+                else if (hit.collider.gameObject.name == "Multiplicador")
+                {
+                    if (pontos >= 25)
+                    {
+                        pontos -= 25; 
+                        multiplicadorPontos++; 
+
+                        Debug.Log("Multiplicador: " + multiplicadorPontos);
+                        Debug.Log("Pontos restantes: " + pontos);
+
+                        
+                        textoMultiplicador.text = "Multiplicador: " + multiplicadorPontos;
+                        textoPontos.text = "Pontos: " + pontos;
+                    }
+                    else
+                    {
+                        Debug.Log("Pontos insuficientes!");
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("Não acertou nada");
+            }
+        }
 
     }
 }
