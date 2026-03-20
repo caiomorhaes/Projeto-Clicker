@@ -1,4 +1,4 @@
-using TMPro;
+Ôªøusing TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,11 +14,11 @@ public class Player : MonoBehaviour
     public LayerMask hitLayers;
 
     int pontos = 0;
-    
+
     public TextMeshProUGUI textoPontos;
     public TextMeshProUGUI textoMultiplicador;
     int multiplicadorPontos = 1;
-    
+
     int clicksAuto = 0;
     float tempoAuto = 0f;
     float intervaloAuto = 1f;
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
                                                        cameraTransform.localEulerAngles.y,
                                                        cameraTransform.localEulerAngles.z);
 
-        //MovimentaÁ„o
+        //MovimentaÔøΩÔøΩo
         float moverHorizontal = Input.GetAxis("Horizontal");
         float moverVertical = Input.GetAxis("Vertical");
 
@@ -59,7 +59,65 @@ public class Player : MonoBehaviour
         transform.Translate(movimento * velocidade * Time.deltaTime);
 
 
-        if (Input.GetMouseButtonDown(0)) // sÛ dispara quando clicar
+        //Compra de itens com teclado
+        if (Input.GetKey(KeyCode.H))
+        {
+            if (pontos >= 25 * multiplicadorPontos)
+            {
+                pontos -= 25 * multiplicadorPontos;
+                multiplicadorPontos++;
+
+                Debug.Log("Multiplicador: " + multiplicadorPontos);
+                Debug.Log("Pontos restantes: " + pontos);
+
+
+                textoMultiplicador.text = " (H) Multiplicador: " + multiplicadorPontos;
+                textoPontos.text = "Pontos: " + pontos;
+            }
+            else
+            {
+                Debug.Log("Pontos insuficientes!");
+            }
+        }
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            int custo = 20;
+            if (pontos >= custo + 10 * clicksAuto)
+            {
+                pontos -= custo + 10 * clicksAuto;
+                clicksAuto++;
+                Debug.Log("Clicks automÔøΩticos: " + clicksAuto);
+                Debug.Log("Pontos restantes: " + pontos);
+                textoPontos.text = "Pontos: " + pontos;
+                textoAutoClick.text = " (J) Clicks Automaticos: " + clicksAuto;
+            }
+            else
+            {
+                Debug.Log("Pontos insuficientes!");
+            }
+        }
+
+        if (Input.GetKey(KeyCode.K))
+        {
+            int custo = pontosMaximos;
+            if (pontos >= pontosMaximos)
+            {
+                pontos -= pontosMaximos;
+                pontosMaximos += 50;
+                Debug.Log("Novo limite: " + pontosMaximos);
+                Debug.Log("Pontos restantes: " + pontos);
+                textoLimite.text = " (K) Limite: " + pontosMaximos;
+                textoPontos.text = "Pontos: " + pontos;
+            }
+            else
+            {
+                Debug.Log("Pontos insuficientes!");
+            }
+        }
+
+        //Compra de itens com clique
+        if (Input.GetMouseButtonDown(0)) // s√≥ dispara quando clicar
         {
             Ray ray = cameraTransform.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             RaycastHit hit;
@@ -80,13 +138,13 @@ public class Player : MonoBehaviour
                     if (pontos >= 25 * multiplicadorPontos)
                     {
                         pontos -= 25 * multiplicadorPontos;
-                        multiplicadorPontos++; 
+                        multiplicadorPontos++;
 
                         Debug.Log("Multiplicador: " + multiplicadorPontos);
                         Debug.Log("Pontos restantes: " + pontos);
 
-                        
-                        textoMultiplicador.text = "Multiplicador: " + multiplicadorPontos;
+
+                        textoMultiplicador.text = " (H) Multiplicador: " + multiplicadorPontos;
                         textoPontos.text = "Pontos: " + pontos;
                     }
                     else
@@ -100,14 +158,14 @@ public class Player : MonoBehaviour
 
                     if (pontos >= custo + 10 * clicksAuto)
                     {
-                        pontos -= custo + 10 + clicksAuto;
+                        pontos -= custo + 10 * clicksAuto;
                         clicksAuto++;
 
-                        Debug.Log("Clicks autom·ticos: " + clicksAuto);
+                        Debug.Log("Clicks autom√°ticos: " + clicksAuto);
                         Debug.Log("Pontos restantes: " + pontos);
 
                         textoPontos.text = "Pontos: " + pontos;
-                        textoAutoClick.text = "Clicks Automaticos: " + clicksAuto;
+                        textoAutoClick.text = " (J) Clicks Automaticos: " + clicksAuto;
                     }
                     else
                     {
@@ -126,7 +184,7 @@ public class Player : MonoBehaviour
                         Debug.Log("Novo limite: " + pontosMaximos);
                         Debug.Log("Pontos restantes: " + pontos);
 
-                        textoLimite.text = "Limite: " + pontosMaximos;
+                        textoLimite.text = " (K) Limite: " + pontosMaximos;
                         textoPontos.text = "Pontos: " + pontos;
                     }
                     else
@@ -137,7 +195,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                Debug.Log("N„o acertou nada");
+                Debug.Log("N√£o acertou nada");
             }
         }
 
