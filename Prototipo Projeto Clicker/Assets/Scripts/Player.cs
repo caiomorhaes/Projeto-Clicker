@@ -1,38 +1,67 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class Player : MonoBehaviour
 {
+    // Referências para a câmera e o transform do jogador
     public Transform _transform;
     public Transform cameraTransform;
-
     Vector2 rotacaoMouse;
     public int sensibilidade;
     public float velocidade = 5.0f;
 
+    // Configurações para o raycast
     public float maxDistance = 10f;
     public LayerMask hitLayers;
 
+    // Variáveis para o sistema de pontos e upgrades
     int pontos = 0;
-
     public TextMeshProUGUI textoPontos;
     public TextMeshProUGUI textoMultiplicador;
     int multiplicadorPontos = 1;
-
     int clicksAuto = 0;
     float tempoAuto = 0f;
     float intervaloAuto = 1f;
     public TextMeshProUGUI textoAutoClick;
-
-    int pontosMaximos = 100;
+    int pontosMaximos = 500;
     public TextMeshProUGUI textoLimite;
 
+    //HUD para mostrar os preços dos upgrades
+    public TextMeshPro precoMulti;
+    public TextMeshPro precoAuto;
+    public TextMeshPro precoLimite;
+    int custoMulti;
+    int custoAuto;
+    int custoLimite;
+
+    // Variáveis para as luzes e a janela
+    public Light luzQuarto;
+    public Light luzSol;
+    public Light luzComputador;
+    public Renderer janelaRenderer;
+    public Texture texturaDia;
+    public Texture texturaNoite;
+
+    int multiplicadorCiclo = 1;
 
     void Start()
+    // Configurações iniciais do cursor e tela cheia
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Screen.fullScreen = true;
+        // Configurações iniciais dos custos dos upgrades
+        custoMulti = 25 * multiplicadorPontos;
+        custoAuto = 10;
+        custoLimite = pontosMaximos;
+        textoMultiplicador.text = " (H) Multiplicador: " + (multiplicadorPontos * multiplicadorCiclo);
+        textoAutoClick.text = " (J) Clicks Automaticos: " + clicksAuto;
+        textoLimite.text = " (K) Limite: " + pontosMaximos;
+        precoAuto.text = "Preço: " + custoAuto;
+        precoMulti.text = "Preço: " + custoMulti;
+        precoLimite.text = "Preço: " + custoLimite;
+
     }
 
     void Update()
@@ -44,6 +73,7 @@ public class Player : MonoBehaviour
         _transform.eulerAngles = new Vector3(_transform.eulerAngles.x, rotacaoMouse.x, _transform.eulerAngles.z);
 
         rotacaoMouse.y = Mathf.Clamp(rotacaoMouse.y, -80, 80);
+
 
         cameraTransform.localEulerAngles = new Vector3(-rotacaoMouse.y,
                                                        cameraTransform.localEulerAngles.y,
@@ -60,19 +90,23 @@ public class Player : MonoBehaviour
 
 
         //Compra de itens com teclado
-        if (Input.GetKey(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
-            if (pontos >= 25 * multiplicadorPontos)
+            if (pontos >= custoMulti)
             {
-                pontos -= 25 * multiplicadorPontos;
+                pontos -= custoMulti;
                 multiplicadorPontos++;
 
                 Debug.Log("Multiplicador: " + multiplicadorPontos);
                 Debug.Log("Pontos restantes: " + pontos);
 
 
-                textoMultiplicador.text = " (H) Multiplicador: " + multiplicadorPontos;
+                textoMultiplicador.text = " (H) Multiplicador: " + (multiplicadorPontos * multiplicadorCiclo);
                 textoPontos.text = "Pontos: " + pontos;
+                custoMulti = 25 * multiplicadorPontos;
+                precoMulti.text = "Preço: " + custoMulti;
+                precoLimite.text = "Preço: " + custoLimite;
+
             }
             else
             {
@@ -80,17 +114,18 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            int custo = 20;
-            if (pontos >= custo + 10 * clicksAuto)
+            if (pontos >= custoAuto)
             {
-                pontos -= custo + 10 * clicksAuto;
+                pontos -= custoAuto;
                 clicksAuto++;
-                Debug.Log("Clicks autom�ticos: " + clicksAuto);
+                Debug.Log("Clicks automáticos: " + clicksAuto);
                 Debug.Log("Pontos restantes: " + pontos);
                 textoPontos.text = "Pontos: " + pontos;
                 textoAutoClick.text = " (J) Clicks Automaticos: " + clicksAuto;
+                custoAuto = 10 * clicksAuto;
+                precoAuto.text = "Preço: " + custoAuto;
             }
             else
             {
@@ -98,17 +133,18 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            int custo = pontosMaximos;
-            if (pontos >= pontosMaximos)
+            if (pontos >= custoLimite)
             {
-                pontos -= pontosMaximos;
-                pontosMaximos += 50;
+                pontos -= custoLimite;
+                pontosMaximos += 500;
                 Debug.Log("Novo limite: " + pontosMaximos);
                 Debug.Log("Pontos restantes: " + pontos);
                 textoLimite.text = " (K) Limite: " + pontosMaximos;
                 textoPontos.text = "Pontos: " + pontos;
+                custoLimite = pontosMaximos;
+                precoLimite.text = "Preço: " + custoLimite;
             }
             else
             {
@@ -128,79 +164,34 @@ public class Player : MonoBehaviour
 
                 if (hit.collider.gameObject.name == "Computador")
                 {
-                    pontos += multiplicadorPontos;
+                    pontos += multiplicadorPontos * multiplicadorCiclo;
                     pontos = Mathf.Clamp(pontos, 0, pontosMaximos);
                     Debug.Log("Pontos: " + pontos);
                     textoPontos.text = "Pontos: " + pontos;
                 }
-                else if (hit.collider.gameObject.name == "Multiplicador")
+
+                // Verifica se o objeto clicado é o interruptor e alterna a luz do quarto
+                if (hit.collider.gameObject.name == "Interruptor")
                 {
-                    if (pontos >= 25 * multiplicadorPontos)
+                    if (luzQuarto.intensity > 0f)
                     {
-                        pontos -= 25 * multiplicadorPontos;
-                        multiplicadorPontos++;
-
-                        Debug.Log("Multiplicador: " + multiplicadorPontos);
-                        Debug.Log("Pontos restantes: " + pontos);
-
-
-                        textoMultiplicador.text = " (H) Multiplicador: " + multiplicadorPontos;
-                        textoPontos.text = "Pontos: " + pontos;
+                        luzQuarto.intensity = 0f;
                     }
                     else
                     {
-                        Debug.Log("Pontos insuficientes!");
+                        luzQuarto.intensity = 50f;
                     }
                 }
-                else if (hit.collider.gameObject.name == "AutoClick")
+                else
                 {
-                    int custo = 20;
-
-                    if (pontos >= custo + 10 * clicksAuto)
-                    {
-                        pontos -= custo + 10 * clicksAuto;
-                        clicksAuto++;
-
-                        Debug.Log("Clicks automáticos: " + clicksAuto);
-                        Debug.Log("Pontos restantes: " + pontos);
-
-                        textoPontos.text = "Pontos: " + pontos;
-                        textoAutoClick.text = " (J) Clicks Automaticos: " + clicksAuto;
-                    }
-                    else
-                    {
-                        Debug.Log("Pontos insuficientes!");
-                    }
+                    Debug.Log("Não acertou nada");
                 }
-                else if (hit.collider.gameObject.name == "Limite")
-                {
-                    int custo = pontosMaximos;
-
-                    if (pontos >= pontosMaximos)
-                    {
-                        pontos -= pontosMaximos;
-                        pontosMaximos += 50;
-
-                        Debug.Log("Novo limite: " + pontosMaximos);
-                        Debug.Log("Pontos restantes: " + pontos);
-
-                        textoLimite.text = " (K) Limite: " + pontosMaximos;
-                        textoPontos.text = "Pontos: " + pontos;
-                    }
-                    else
-                    {
-                        Debug.Log("Pontos insuficientes!");
-                    }
-                }
+                
             }
-            else
-            {
-                Debug.Log("Não acertou nada");
-            }
+
         }
-
+        
         tempoAuto += Time.deltaTime;
-
         if (tempoAuto >= intervaloAuto)
         {
             tempoAuto = 0f;
@@ -210,5 +201,42 @@ public class Player : MonoBehaviour
             textoPontos.text = "Pontos: " + pontos;
         }
 
+        // Verifica se ambas as luzes estão apagadas para acender a luz do computador
+        if (luzSol.intensity == 0f && luzQuarto.intensity == 0f)
+        {
+            luzComputador.intensity = 500f;
+        }
+        else
+        {
+            luzComputador.intensity = 0f;
+        }
+
+        // Só template para mim mesmo como interruptor de sol 
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (luzSol.intensity > 0f)
+            {
+                luzSol.intensity = 0f;
+            }
+            else
+            {
+                luzSol.intensity = 500f;
+            }
+        }
+
+        //Texturas da janela dependendo da luz do sol
+        if (luzSol.intensity == 0f)
+        {
+            janelaRenderer.material.mainTexture = texturaNoite;
+            multiplicadorCiclo = 2; // Dobra o multiplicador de pontos quando a luz do sol estiver apagada
+            textoMultiplicador.text = " (H) Multiplicador: " + (multiplicadorPontos * multiplicadorCiclo);
+        }
+        else
+        {
+            janelaRenderer.material.mainTexture = texturaDia;
+            multiplicadorCiclo = 1; // Restaura o multiplicador de pontos para o normal quando a luz do sol estiver acesa
+            textoMultiplicador.text = " (H) Multiplicador: " + (multiplicadorPontos * multiplicadorCiclo);
+        }
     }
 }
+
