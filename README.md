@@ -14,24 +14,26 @@ Vide tutoriais do PI.
 
 ## Nome do Grupo
 
-## Integrantes: <a href="https://www.linkedin.com/in/victorbarq/">Goku Sayajin</a>, <a href="https://www.linkedin.com/in/victorbarq/">Saitama One</a>, <a href="https://www.linkedin.com/in/victorbarq/">Ikki de Fenix</a>, <a href="https://www.linkedin.com/in/victorbarq/">Yusuke Urameshi</a>, <a href="https://www.linkedin.com/in/victorbarq/">Roronoa Zoro</a>
+## Integrantes: <a href="https://www.linkedin.com/in/caio-moraesdev/">Caio Moraes</a>, <a href="https://www.linkedin.com/in/enzo-gon%C3%A7alves-5a3a84320/">Enzo Augusto Pedroza Gonçalves</a>, <a href="https://www.linkedin.com/in/marcus-sousa-5029573aa/">Marcus Sousa </a>, <a href="https://www.linkedin.com/in/nicolasbmoumdjian/">Nicolas Bologna</a>, <a href="https://www.linkedin.com/in/lucas-elinou-feitosa-0894703ba/">Lucas Elinou Feitosa</a>
 
-## Professores Orientadores: <a href="https://www.linkedin.com/in/victorbarq/">Dr. Victor Von Doom</a>, <a href="https://www.linkedin.com/in/victorbarq/">Me. Saitama</a>, <a href="https://www.linkedin.com/in/victorbarq/">Dr. Strange</a>, <a href="https://www.linkedin.com/in/victorbarq/">Me. Yoda</a>, <a href="https://www.linkedin.com/in/victorbarq/">Dr. Gero</a>
+## Professores Orientadores:  <a href="https://www.linkedin.com/in/aimarlopes/">Aimar Martins Lopes</a>, <a href="https://www.linkedin.com/in/adriano-valente-534576135/">Adriano Felix Valente</a>, <a href="https://www.linkedin.com/in/dolemes/">David de Oliveira Lemes</a>, <a href="https://www.linkedin.com/in/edsonbarbero/">Edson Barbero</a>, <a href="https://www.linkedin.com/in/eduardo-savino/">Eduardo Savino Gomes</a>, <a href="https://www.linkedin.com/in/francisco-escobar/">Francisco de Souza Escobar</a>, <a href="https://www.linkedin.com/in/jefferson-o-silva/">Jefferson de Oliveira Silva</a>, <a href="https://www.linkedin.com/in/jesuslisboagomes/">Jésus Gomes</a>, <a href="https://www.linkedin.com/in/jbuesso/">José Carlos Buesso Jr</a>, <a href="https://www.linkedin.com/in/katia-bossi/">Kátia Bossi</a>, <a href="https://www.linkedin.com/in/lucymari/">Lucy Mari Tabuti</a>, <a href="https://www.linkedin.com/in/paula-astorino-432b5812a/"> Paula Astorino</a>, <a href="https://www.linkedin.com/in/remuniz/">Renata Mumiz do Nascimento</a>, <a href="https://www.linkedin.com/in/professorrodnil/">Rodnil da Silva Moreira Lisbôa</a>, <a href="https://www.linkedin.com/in/ronaldo-araujo-pinto-3542811a/">Ronaldo Araujo Pinto</a>, <a href="https://www.linkedin.com/in/victorbarq/">Victor Bruno Alexander Rosetti de Quiroz</a>, <a href="https://www.linkedin.com/in/vheltai/">Vinicius Heltai</a>
 
 ## Descrição
 
 <p align="center">
-<img src="https://pix4free.org/assets/library/2021-01-20/originals/game.jpg" alt="NOME DO JOGO" border="0">
-  Game by <a href="http://www.nyphotographic.com/">Nick Youngson</a> <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> <a href="http://pix4free.org/">Pix4free</a>
-</p>
+<img src="Projeto clicker (1).pdf" alt="Projeto clicker (1).pdf" border="0">
+ 
+ O projeto inicialmente foi criado com a ideia de ser um clicker,
+com a história e temática de desenvolvedor, ele será em um estilo
+parecido ao do cookie clicker, com um sistema de dinheiro, limite
+de dinheiro e clicks automaticos
+
+ O jogo irá girar entorno de 3 principais fatores, o valor de quanto cada click da de dinheiro para o player (definido visualmente pelo quao avançado/novo é a linguagem que o personagem usa), o limite de dinheiro que o player pode ter (definido por quão tecnologico é o computador do personagem), e os clicks automaticos (definido por automações feitas em python do personagem), todos esses fatores são upgrades que serão comprados pelo usuario para serem alteradas no jogo visualmente
+
+ O jogo terá uma mini historia que será baseada 100% na comédia, onde o personagem principal estará fazendo todos esses upgrades para no fim conseguir um emprego mediano no supermercado de t.i, sendo esse o fim do jogo 
 
 
-De um a dois parágrafos sobre o que é seu projeto e o que ele faz.
-<br><br>
-Meu projeto ajuda estudantes FECAP a configurarem seus githubs.
-<br><br>
-May the force be with you!
-<br><br>
+
 
 ## 🛠 Estrutura de pastas
 
@@ -104,7 +106,7 @@ Coloque código do prompt de comnando se for necessário
 ```
 
 ## 📋 Licença/License
-Utilize o link <https://chooser-beta.creativecommons.org/> para fazer uma licença CC BY 4.0.
+<a href="https://github.com/2026-1-MCC1/Projeto11">Projeto Clicker </a> © 2026 by <a href="https://github.com/caiomorhaes, https://github.com/pdz19git-cmd, https://github.com/NicolasBM17,https://github.com/marcussousa7">Caio Moraes, Enzo Augusto Pedroza Gonçalves, Marcus Vinicius de Andrade Sousa, Nicolas Bologna Moumdjian</a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a><img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="" style="max-width: 1em;max-height:1em;margin-left: .2em;">
 
 ## 🎓 Referências
 
@@ -113,6 +115,5 @@ Aqui estão as referências usadas no projeto.
 1. <https://github.com/iuricode/readme-template>
 2. <https://github.com/gabrieldejesus/readme-model>
 3. <https://chooser-beta.creativecommons.org/>
-4. <https://freesound.org/>
-5. <https://www.toptal.com/developers/gitignore>
-6. Músicas por: <a href="https://freesound.org/people/DaveJf/sounds/616544/"> DaveJf </a> e <a href="https://freesound.org/people/DRFX/sounds/338986/"> DRFX </a> ambas com Licença CC 0.
+4. <https://www.toptal.com/developers/gitignore>
+   

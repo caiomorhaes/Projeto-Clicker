@@ -1,0 +1,8 @@
+Trabalhos e Atribuições do grupo 
+data e hora: 13/04/2026 10:12
+
+Caio Moraes: Criação de estruturas, programação dos upgrades, criação e organização do sistema de click
+Enzo Augusto: Seleção de modelos 
+Nicolas Bologna: Criação da mecânica de Teletransporte e ambientes além da casa principal
+Marcos Sousa: sem contribuições até o momento
+Lucas Feitosa: Criação da mecânica de limitação de dinheiro
